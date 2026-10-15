@@ -5,6 +5,13 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 
 
+"""
+NOT A PRIMARY NEARLINE ANALYSIS TOOL (yet)!!!
+
+This module was a one-off test. It is possible that it may be implemented into the nearline analysis pipeline at some point.
+Until that decision is made, it should not be deleted.
+"""
+
 def find_histogram_peaks(
     counts,
     smooth_window=3,

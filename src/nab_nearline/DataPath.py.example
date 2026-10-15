@@ -1,0 +1,5 @@
+from pathlib import Path
+
+# Replace INSERT_HERE with the Linux path that points towards where your data is stored locally
+# After changing path, remove the ".example" portion of this file's name
+datapath = str(Path("INSERT_HERE").expanduser()) + "/"

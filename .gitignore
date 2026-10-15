@@ -18,3 +18,9 @@ run10102_suspicious_histograms.csv
 *.deb
 
 *:Zone.Identifier
+
+wheelhouse-py312/
+
+src/nab_nearline/DataPath.py
+
+deploy.sh

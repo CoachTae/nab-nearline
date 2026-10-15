@@ -9,9 +9,11 @@ from pathlib import Path
 import random
 import sys
 
+from DataPath import datapath
+
 
 file_path = (
-    Path("~/nab-nearline/SampleData")
+    Path("datapath")
     .expanduser()
     / "Runs10100"
     / "Run10102_0.h5"
@@ -22,13 +24,8 @@ data = nabPy.File(str(file_path))
 pixel_noise_data = PixelNoise.pixel_noise(data, bin_width=3)
 
 
-from NoiseHistogramReport import plot_all_noise_histograms
+from quick_noise_report import *
 
-plot_all_noise_histograms(
-    pixel_noise_data,
-    output_pdf="run10102_histograms.pdf",
-    suspicious_csv="run10102_suspicious_histograms.csv"
-)
 sys.exit()
 
 def robust_sigma(values):
