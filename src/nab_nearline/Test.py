@@ -1,3 +1,6 @@
+import time
+start_time = time.time()
+
 import deltaRice
 import h5py
 import matplotlib.pyplot as plt
@@ -13,7 +16,7 @@ from DataPath import datapath
 
 
 file_path = (
-    Path("datapath")
+    Path(datapath)
     .expanduser()
     / "Runs10100"
     / "Run10102_0.h5"
@@ -22,7 +25,6 @@ file_path = (
 data = nabPy.File(str(file_path))
 
 pixel_noise_data = PixelNoise.pixel_noise(data, bin_width=3)
-
 
 from quick_noise_report import *
 

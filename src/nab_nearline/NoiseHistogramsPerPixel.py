@@ -1,10 +1,6 @@
-import deltaRice
-import h5py
-import matplotlib.pyplot as plt
-import nabPy
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 import numpy as np
-import pandas as pd
-from pathlib import Path
 import sys
 
 def pixel_noise(File, bin_width=3):
@@ -59,7 +55,7 @@ def pixel_noise(File, bin_width=3):
 
     # Create dictionary for each pixel's noise data
     pixel_noise_data = {
-            int(pix): {'rms': rms, 'std': std, 'hist': hist[i], 'baseline': baseline, "n_waveforms": int(count)}
+            int(pix): {'rms': float(rms), 'std': float(std), 'hist': hist[i].tolist(), 'baseline': float(baseline), "n_waveforms": int(count)}
             for i, (pix, rms, std, baseline, count) in enumerate(zip(unique_pixels, mean_rms, mean_std, baselines, counts))
         }
 
@@ -73,11 +69,14 @@ def pixel_noise(File, bin_width=3):
             pixel_noise_data[pix]['hist'] = hist_data[first:last+1]
             # Update binning information for this pixel
             pixel_noise_data[pix]['binning'] = {
-                'start': start + first * bin_width,
-                'bin_width': bin_width,
-                'nbins': last - first + 1
+                'start': float(start + first * bin_width),
+                'bin_width': float(bin_width),
+                'nbins': int(last - first + 1)
             }
 
+    start_time = File.parameterFile().file["RunTime/SubStartTime"][()]
+    est_start_time = datetime.fromtimestamp(start_time[0], tz=ZoneInfo("US/Eastern")).strftime("%Y-%m-%d %H:%M:%S %Z")
+    pixel_noise_data['subrun_start_time'] = est_start_time
 
     return pixel_noise_data
     
